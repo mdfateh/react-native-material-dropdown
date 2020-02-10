@@ -13,7 +13,9 @@ import {
   I18nManager,
 } from 'react-native';
 import Ripple from 'react-native-material-ripple';
-import { TextField } from 'react-native-material-textfield';
+import {   TextField,
+  FilledTextField,
+  OutlinedTextField } from 'react-native-material-textfield';
 
 import DropdownItem from '../item';
 import styles from './styles';
@@ -503,8 +505,8 @@ export default class Dropdown extends PureComponent {
       title:
       String(title);
 
-    return (
-      <TextField
+    return props.mode === 'outlined' ? (
+      <OutlinedTextField
         label=''
         labelHeight={dropdownOffset.top - Platform.select({ ios: 1, android: 2 })}
 
@@ -515,7 +517,27 @@ export default class Dropdown extends PureComponent {
         onChangeText={undefined}
         renderAccessory={renderAccessory}
       />
-    );
+    ) : props.mode === "filled" ? (      <FilledTextField
+        label=''
+        labelHeight={dropdownOffset.top - Platform.select({ ios: 1, android: 2 })}
+
+        {...props}
+
+        value={title}
+        editable={false}
+        onChangeText={undefined}
+        renderAccessory={renderAccessory}
+      />) : (      <TextField
+        label=''
+        labelHeight={dropdownOffset.top - Platform.select({ ios: 1, android: 2 })}
+
+        {...props}
+
+        value={title}
+        editable={false}
+        onChangeText={undefined}
+        renderAccessory={renderAccessory}
+      />);
   }
 
   renderRipple() {
